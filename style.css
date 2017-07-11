@@ -1,0 +1,20 @@
+.fact-entry {
+  align-items: center;
+  display: flex;
+  padding: 2em;
+}
+
+.fact-text {
+  flex: 1 1 auto;
+}
+
+.image-outer {
+  height: 10em;
+  margin: 2em;
+  width: 10em;
+}
+
+.image-inner {
+  height: 100%;
+  width: 100%;
+}
