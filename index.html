@@ -3,27 +3,75 @@
   <head>
     <meta charset="UTF-8">
     <title>About James Oguntebi</title>
-    <link rel="stylesheet" href="style.css"></link>
+    <link rel="stylesheet" href="styles/global.css"></link>
+    <link rel="stylesheet" href="styles/header.css"></link>
+    <link rel="stylesheet" href="styles/facts.css"></link>
+    <link rel="stylesheet" href="styles/comments.css"></link>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
   </head>
   <body>
-    <h1>James Oguntebi</h1>
-    <div class="fact-entry">
-      <label class="fact-text">I was born in Nigeria.</label>
-      <div class="image-outer">
-        <img class="image-inner" src="images/nigeria.jpg"></img>
+    <div class="header">
+      <h1>James Oguntebi</h1>
+      <div class="button text-button credits-button">Credits</div>
+      <div class="credits-popup">Art from <a href="http://www.digitalblasphemy.com" target="blank">Digital Blasphemy</a></div>
+    </div>
+    <div class="header-spacer"></div>
+
+    <div class="fact-list">
+      <div class="fact-entry">
+        <div class="fact-text">I work on <a href="http://www.google.com/keep" target="blank">Google Keep</a></div>
+      </div>
+      <div class="fact-entry">
+        <div class="fact-text">I like table tennis.</div>
+      </div>
+      <div class="fact-entry">
+        <div class="fact-text">I like ultimate frisbee.</div>
+      </div>
+      <div class="fact-entry">
+        <div class="fact-text">I was born in Nigeria.</div>
+      </div>
+      <div class="fact-entry">
+        <div class="fact-text">I went to Georgia Tech. Go Jackets!</div>
+      </div>
+      <div class="fact-entry">
+        <div class="fact-text">I like making websites.</div>
       </div>
     </div>
-    <div class="fact-entry">
-      <div class="image-outer">
-        <img class="image-inner" src="images/tabletennis.jpg"></img>
+
+    <div class="comments-button button icon-button showing"></div>
+    <div class="comments-section">
+      <div class="comments-header">
+        <h2>Comments</h2>
+        <div class="close-button button icon-button icon-button-small"></div>
       </div>
-      <label class="fact-text">I like table tennis.</label>
-    </div>
-    <div class="fact-entry">
-      <label class="fact-text">I like ultimate frisbee.</label>
-      <div class="image-outer">
-        <img class="image-inner" src="images/ultimate.jpg"></img>
+      <div class="comments-stream"></div>
+      <div class="comments-new-entry">
+        <div class="comments-name-row">
+          <label>Name:</label>
+          <input type="text" class="comments-name-input">
+        </div>
+        <div class="comments-comment-row">
+          <label>Comment:</label>
+          <textarea class="comments-comment-input"></textarea>
+        </div>
+        <div class="comments-new-entry-footer">
+          <div class="button text-button comments-submit-button">Submit</div>
+        </div>
       </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
+    <script src="script.js"></script>
   </body>
+
+  <template id="comments-stream-entry-template">
+    <div class="comments-stream-entry">
+      <div class="comments-stream-entry-name-and-date">
+        <label class="comments-stream-entry-name"></label>
+        <label class="comments-stream-entry-date"></label>
+      </div>
+      <div class="comments-stream-entry-comment"></div>
+    </div>
+  </template>
 </html>
