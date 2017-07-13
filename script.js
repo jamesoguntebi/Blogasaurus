@@ -1,3 +1,5 @@
+var comments;
+
 function initialize() {
   $('.credits-button').click(toggleCreditsPopup);
   $(document).click(handleDocumentClick);
@@ -14,6 +16,22 @@ function initialize() {
   $('.comments-comment-input').on('keypress', handleCommentFieldKey);
 
   $('.comments-stream').scroll(updateCommentStreamShadows);
+
+  loadAndRenderComments();
+}
+
+function loadAndRenderComments() {
+  try {
+    var commentsString = localStorage.getItem('james-blog-comments') || '[]';
+    comments = JSON.parse(commentsString) || [];
+  } catch (exception) {
+    comments = [];
+  }
+
+  comments.sort(function(comment1, comment2) {
+    return comment1.timeStamp - comment2.timeStamp;
+  });
+  comments.forEach(renderComment);
 }
 
 function toggleCreditsPopup() {
@@ -59,13 +77,41 @@ function submitComment() {
 
   var name = $('.comments-name-input').val() || 'Anonymous';
   var comment = $('.comments-comment-input').val();
+  var timeStamp = (new Date()).getTime();
+  var newComment = {
+    name: name,
+    comment: comment,
+    timeStamp, timeStamp
+  };
+  renderComment(newComment);
+  comments.push(newComment);
+  localStorage.setItem('james-blog-comments', JSON.stringify(comments));
 
+  $('.comments-name-input').val('');
+  $('.comments-comment-input').val('');
+
+  $('.comments-comment-input').focus();
+}
+
+function renderComment(commentObject) {
   var commentEntry = $('#comments-stream-entry-template')[0].content;
-  commentEntry.querySelector('.comments-stream-entry-name').innerText = name;
+  commentEntry.querySelector('.comments-stream-entry-name').innerText =
+      commentObject.name;
+
+  // Compose the date string. The jquery dateFormat library just says 'more than
+  // 31 days ago' for old dates. So get the actual date for old dates.
+  var dateString;
+  if ((new Date()).getTime() - commentObject.timeStamp >
+      31 * 24 * 60 * 60 * 1000) {
+    dateString = $.format.date(new Date(commentObject.timeStamp), 'd MMM yy');
+  } else {
+    dateString = $.format.prettyDate(new Date(commentObject.timeStamp));
+  }
   commentEntry.querySelector('.comments-stream-entry-date').innerText =
-      $.format.prettyDate(new Date());
+      dateString;
+
   commentEntry.querySelector('.comments-stream-entry-comment').innerText =
-      comment;
+      commentObject.comment;
   commentEntry = document.importNode(commentEntry, true).querySelector(
       '.comments-stream-entry');
 
@@ -75,11 +121,6 @@ function submitComment() {
   }, 16);
 
   updateCommentStreamShadows();
-
-  $('.comments-name-input').val('');
-  $('.comments-comment-input').val('');
-
-  $('.comments-comment-input').focus();
 }
 
 function updateCommentStreamShadows() {
@@ -93,7 +134,7 @@ function updateCommentStreamShadows() {
     } else {
       $('.comments-header').removeClass('scrolled');
     }
-    if (streamEl.clientHeight + streamEl.scrollTop < streamEl.scrollHeight) {
+    if (streamEl.offsetHeight + streamEl.scrollTop < streamEl.scrollHeight) {
       $('.comments-new-entry').addClass('scrolled');
     } else {
       $('.comments-new-entry').removeClass('scrolled');

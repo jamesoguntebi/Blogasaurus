@@ -77,7 +77,7 @@
 .comments-stream-entry-name-and-date {
   color: rgba(0, 0, 0, 0.54);
   display: flex;
-  font-size: smaller;
+  font-size: x-small;
 }
 
 .comments-stream-entry-name {
@@ -85,6 +85,7 @@
 }
 
 .comments-stream-entry-comment {
+  font-size: small;
   margin-top: 5px;
 }
 
@@ -117,7 +118,6 @@
 .comments-comment-input {
   font-size: small;
   outline: none;
-  padding: 2px 6px;
 }
 
 .comments-name-input {
@@ -126,6 +126,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.30);
   flex: 1 1 auto;
   margin-left: 10px;
+  padding: 2px 6px;
 }
 
 .comments-name-input:focus {
@@ -139,6 +140,7 @@
   display: block;
   height: 45px;
   margin-top: 5px;
+  padding: 6px;
   resize: none;
   width: 100%;
 }
