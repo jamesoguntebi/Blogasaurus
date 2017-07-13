@@ -67,7 +67,7 @@
   padding: 10px;
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.2s linear;
+  transition: transform 0.2s ease-in;
 }
 
 .comments-stream-entry.showing {
