@@ -5,13 +5,15 @@ function initialize() {
   $('.comments-button').click(toggleCommentsVisibility);
   $('.comments-section .close-button').click(toggleCommentsVisibility);
 
-  $(document).scroll(setHeaderShadow);
+  $(document).scroll(updateHeaderShadow);
 
   $('.comments-comment-input').on('input', updateCommentSubmitButton);
   updateCommentSubmitButton();
 
   $('.comments-submit-button').click(submitComment);
   $('.comments-comment-input').on('keypress', handleCommentFieldKey);
+
+  $('.comments-stream').scroll(updateCommentStreamShadows);
 }
 
 function toggleCreditsPopup() {
@@ -34,7 +36,7 @@ function toggleCommentsVisibility() {
   }
 }
 
-function setHeaderShadow() {
+function updateHeaderShadow() {
   if (document.body.scrollTop > 0) {
     $('.header').addClass('scrolled');
   } else {
@@ -72,11 +74,31 @@ function submitComment() {
     commentEntry.classList.add('showing');
   }, 16);
 
+  updateCommentStreamShadows();
 
   $('.comments-name-input').val('');
   $('.comments-comment-input').val('');
 
   $('.comments-comment-input').focus();
+}
+
+function updateCommentStreamShadows() {
+  var streamEl = $('.comments-stream')[0];
+  if (streamEl.scrollHeight <= streamEl.clientHeight) {
+    $('.comments-header').removeClass('scrolled');
+    $('.comments-new-entry').removeClass('scrolled');
+  } else {
+    if (streamEl.scrollTop > 0) {
+      $('.comments-header').addClass('scrolled');
+    } else {
+      $('.comments-header').removeClass('scrolled');
+    }
+    if (streamEl.clientHeight + streamEl.scrollTop < streamEl.scrollHeight) {
+      $('.comments-new-entry').addClass('scrolled');
+    } else {
+      $('.comments-new-entry').removeClass('scrolled');
+    }
+  }
 }
 
 function handleCommentFieldKey(event) {
