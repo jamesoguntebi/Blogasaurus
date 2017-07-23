@@ -46,19 +46,15 @@
       </div>
       <div class="comments-stream"></div>
       <div class="comments-new-entry">
-        <div class="comments-name-row">
-	  {% if user.signedIn %}
-            Commenting as {{ user.name }}.&nbsp;<a href="{{ user.signOutUrl }}">Sign out</a>
+        <div class="comments-user-row">
+	  {% if user.signed_in %}
+            Commenting as&nbsp;<span class="comments-user-name">{{ user.name }}</span>.&nbsp;
+            <a href="{{ user.sign_out_url }}">Sign out</a>
           {% else %}
-            Commenting annonymously.&nbsp;<a href="{{ user.signInUrl }}">Sign in</a>
+            Commenting annonymously.&nbsp;<a href="{{ user.sign_in_url }}">Sign in</a>
           {% endif %}
-          <label>Name:</label>
-          <input type="text" class="comments-name-input">
         </div>
-        <div class="comments-comment-row">
-          <label>Comment:</label>
-          <textarea class="comments-comment-input"></textarea>
-        </div>
+        <textarea class="comments-comment-input"></textarea>
         <div class="comments-new-entry-footer">
           <div class="button text-button comments-submit-button">Submit</div>
         </div>

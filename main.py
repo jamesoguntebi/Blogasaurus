@@ -14,18 +14,18 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
 	user = users.get_current_user();
 	if user:
-	    userData = {
-		'signedIn':true,
+	    user_data = {
+		'signed_in':True,
 		'name':user.nickname(),
-		'signOutUrl':user.create_logout_url('/')
+		'sign_out_url':users.create_logout_url('/')
 	    }
 	else:
-	    userData = {
-		'signedIn':false
-		'signInUrl':user.create_login_url('/')
+	    user_data = {
+		'signed_in':False,
+		'sign_in_url':users.create_login_url('/')
 	    }
         template = jinja_environment.get_template('index.html')
-        self.response.out.write(template.render({'user':userData))
+        self.response.out.write(template.render({'user':user_data}))
 
 # creates a WSGIApplication and assigns it to the variable app.
 app = webapp2.WSGIApplication([
