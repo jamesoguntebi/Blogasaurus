@@ -1,0 +1,18 @@
+runtime: python27 # running on python 2.7
+api_version: 1 # API version 1
+threadsafe: true # how AppEngine processes multiple requests simultaneously
+
+
+handlers:
+- url: /(.*\.(gif|png|jpg|js|css))$
+  static_files: static/\1
+  upload: static/.*\.(gif|png|jpg|js|css)$
+
+- url: .*
+  script: main.app
+
+libraries:
+- name: jinja2
+  version: latest
+- name: webapp2
+  version: "2.5.2"
