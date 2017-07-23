@@ -47,6 +47,11 @@
       <div class="comments-stream"></div>
       <div class="comments-new-entry">
         <div class="comments-name-row">
+	  {% if user.signedIn %}
+            Commenting as {{ user.name }}.&nbsp;<a href="{{ user.signOutUrl }}">Sign out</a>
+          {% else %}
+            Commenting annonymously.&nbsp;<a href="{{ user.signInUrl }}">Sign in</a>
+          {% endif %}
           <label>Name:</label>
           <input type="text" class="comments-name-input">
         </div>
